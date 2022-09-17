@@ -1,12 +1,10 @@
-<style>
-
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 
 * {
 	box-sizing: border-box;
 }
 
-.abody {
+body {
 	background-color: #1abc9c;
 	display: flex;
 	align-items: center;
@@ -23,9 +21,8 @@
 	align-items: center;
 	justify-content: space-around;
 	padding: 15px 0;
-	height: 400px;
-	width: 100px;
-	float: right;
+	height: 200px;
+	width: 70px;
 }
 
 .circle {
@@ -63,13 +60,7 @@
 }
 
 
-.city {
-  background-color: tomato;
-  color: white;
-  border: 2px solid black;
-  margin: 20px;
-  padding: 20px;
-}
+
 
 
 
@@ -229,89 +220,7 @@
 		transform: translateX(0px);
 	}
 	
-	.city {
-		right: 10px;
-	}
-
 	.floating-btn {
 		right: 10px;
 	}
 }
-
-body {
-  background-image: url('https://www2.deloitte.com/content/dam/Deloitte/us/Images/Misc/us-cloud-pov-promo.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
-  background-position:center;
-  background-size:contain;
-}
-
-
-</style>
-
-<div class="container">
-	<div class="circle red" color="red"></div>
-	<div class="circle" color="yellow"></div>
-	<div class="circle" color="green"></div>
-</div>
-
-
-<div class="floating-text">
-	Part of CMS SAP Automation Stratosphere
-</div>
-
-<script>
-
-const circles = document.querySelectorAll('.circle')
-let activeLight = 0;
-
-setInterval(() => {
-        changeLight();
-}, 1000);
-
-function changeLight() {
-        circles[activeLight].className = 'circle';
-        activeLight++;
-
-        if(activeLight > 2) {
-                activeLight = 0;
-        }
-
-        const currentLight = circles[activeLight]
-
-        currentLight.classList.add(currentLight.getAttribute('color'));
-}
-
-
-// SOCIAL PANEL JS
-const floating_btn = document.querySelector('.floating-btn');
-const close_btn = document.querySelector('.close-btn');
-const social_panel_container = document.querySelector('.social-panel-container');
-
-floating_btn.addEventListener('click', () => {
-        social_panel_container.classList.toggle('visible')
-});
-
-close_btn.addEventListener('click', () => {
-        social_panel_container.classList.remove('visible')
-});
-
-</script>
-
-<script>
-valueChange = function(item){
-	alert(item.value);
-}
-</script>
-
-<p> <p>
-
-<div class="city">
-<form name="form1" method="post" action=" insert_data.php">
-    Operation Options
-    <input onChange="valueChange(this)" type="checkbox" name="area" id="area" value="Yes, to the Cloud">Cloud </input>
-    <input onChange="valueChange(this)" type="checkbox" name="area" id="area" value="Wow, stay on Prem">IMS </input>
-    </form>
-</div>
-

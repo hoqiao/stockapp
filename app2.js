@@ -10,30 +10,6 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 
 
-const { exec } = require("child_process");
-
-var execstring = '/root/exectest/findnum.sh'
-
-function runcmd (comm, command) {
-	  exec(comm, (error, stdout, stderr) => {
-		      if (error) {
-			              console.log(`error: ${error.message}`);
-		      		      command(error)
-			              return;
-			          }
-		      if (stderr) {
-			              console.log(`stderr: ${stderr}`);
-		      		      command(stderr)
-			              return;
-			          }
-		      console.log(`stdout: ${stdout}` );
-		      command(stdout)
-		      return 
-		    });
-}
-
-
-
 // Create call_api
 //
 
@@ -48,8 +24,8 @@ function call_api(finishedAPI, ticker) {
 		}	
 		}
 	)
-};
 
+};
 
 app.engine('handlebars', handlebars.engine({ defaultLayout: 'main' } ) );
 app.set('view engine', 'handlebars');
@@ -57,7 +33,6 @@ app.set('views', './views');
 
 mystuff = 'result from running exec';
 
-/*
 app.get('/', function (req, res) {
 		call_api( function(doneAPI) {
 		res.render('home', {
@@ -67,6 +42,7 @@ app.get('/', function (req, res) {
 		}, "fb");
 });
 
+/*
 
 app.post('/', function (req, res) {
 		call_api( function(doneAPI) {
@@ -80,37 +56,21 @@ app.post('/', function (req, res) {
 });
 */
 
-app.get('/', function (req, res) {
-	runcmd(   '/root/exectest/findnum.sh',  function(doneCMD) {
-		res.render('home', {
-			stock: '/root/exectest/findnum.sh',
-			posted_stuff: doneCMD
-		})
-	});
-});
-
-
 app.post('/', function (req, res) {
-	runcmd(   req.body.status,  function(doneCMD) {
-		res.render('home', {
-			stock: req.body.status,
-			posted_stuff: doneCMD
-			// console.log('rsult is:'+result);
-			// posted_stuff: posted_stuff
-		})
-	});
+		call_api( function(doneAPI) {
+			posted_stuff = req.body.status;
+			// console.log(posted_stuff);
+			res.render('home', {
+			stock: doneAPI,
+			posted_stuff: Math.round ( doneAPI.marketCap / 1000000000 )
+		});
+		}, req.body.status);
 });
 
 aboutme = 'there is something about me'
 
 app.get('/about.html', function (req, res) {
 		res.render('about', {
-			stuff: aboutme
-		});
-});
-
-app.get('/action.html', function (req, res) {
-		res.render('action', {
 			stuff: aboutme
 		});
 });
